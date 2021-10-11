@@ -33,8 +33,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 app.prepare().then(async () => {
   const server = new Koa();
   const router = new Router();
-  server.keys = [Shopify.Con
-    text.API_SECRET_KEY];
+  server.keys = [Shopify.Context.API_SECRET_KEY];
   server.use(
     createShopifyAuth({
       async afterAuth(ctx) {

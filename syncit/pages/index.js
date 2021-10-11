@@ -1,9 +1,18 @@
-import { Heading, Page, Button, Navigation } from "@shopify/polaris";
+import { Heading, Page, Button, Navigation, Stack, Badge } from "@shopify/polaris";
 import {HomeMajor, OrdersMajor, ProductsMajor} from '@shopify/polaris-icons';
 
 
 const Index = () => (
+
+
+
   <Page>
+      <Stack>
+  <Badge>Paid</Badge>
+  <Badge>Processing</Badge>
+  <Badge>Fulfilled</Badge>
+  <Badge>Completed</Badge>
+</Stack>
     <Heading> I changed the heading of the App</Heading>
     <Navigation location="/">
       <Navigation.Section
