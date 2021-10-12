@@ -6,14 +6,15 @@ const Index = () => (
 
 
 
-  <Page>
+  <Page fullWidth>
       <Stack>
-  <Badge>Paid</Badge>
-  <Badge>Processing</Badge>
-  <Badge>Fulfilled</Badge>
-  <Badge>Completed</Badge>
-</Stack>
-    <Heading> I changed the heading of the App</Heading>
+        <Badge>Paid</Badge>
+        <Badge>Processing</Badge>
+        <Badge>Fulfilled</Badge>
+        <Badge>Completed</Badge>
+      </Stack>
+
+    <Heading>SyncIt App Heading</Heading>
     <Navigation location="/">
       <Navigation.Section
         items={[
