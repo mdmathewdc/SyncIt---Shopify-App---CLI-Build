@@ -1,4 +1,4 @@
-import { Page, Card, Tabs } from "@shopify/polaris";
+import { Page, Card, Tabs, Button } from "@shopify/polaris";
 import { useState, useCallback, useEffect, useMemo } from "react";
 
 export default function App() {
@@ -9,9 +9,13 @@ export default function App() {
     []
   );
 
+  const handleButtonClick = () => {
+    alert("Button clicked...");
+  }
+
   useEffect(() => {
-    alert("Re-rendered!");
-  });
+    alert("Welcome to SyncIt!");
+  }, []);
 
   const tabs = [
     {
@@ -35,6 +39,9 @@ export default function App() {
             <p>Tab {selected} selected</p>
           </Card.Section>
         </Tabs>
+
+        <Button primary onClick={handleButtonClick}>Save theme</Button>
+
       </Card>
     </Page>
   );
