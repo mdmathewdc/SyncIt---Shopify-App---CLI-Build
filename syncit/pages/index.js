@@ -40,7 +40,7 @@ export default function App() {
           </Card.Section>
         </Tabs>
 
-        <Button primary onClick={handleButtonClick}>Save theme</Button>
+        <Button primary onClick={handleButtonClick}>Select Product</Button>
 
       </Card>
     </Page>
