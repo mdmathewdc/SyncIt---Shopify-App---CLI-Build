@@ -1,45 +1,50 @@
-import { Heading, Page, Button, Navigation, Stack, Badge } from "@shopify/polaris";
-import {HomeMajor, OrdersMajor, ProductsMajor} from '@shopify/polaris-icons';
+import {
+  Heading,
+  Page,
+  Button,
+  Navigation,
+  Stack,
+  Badge,
+} from "@shopify/polaris";
+import { useState, useCallback } from "react";
 
 
-const Index = () => (
+export default function App() {
 
+  const [selected, setSelected] = useState(0);
 
+  const handleTabChange = useCallback(
+    (selectedTabIndex) => setSelected(selectedTabIndex),
+    []
+  );
 
-  <Page fullWidth>
-      <Stack>
-        <Badge>Paid</Badge>
-        <Badge>Processing</Badge>
-        <Badge>Fulfilled</Badge>
-        <Badge>Completed</Badge>
-      </Stack>
+  const tabs = [
+    {
+      id: "all-customers-1",
+      content: "Create Bundle",
+      accessibilityLabel: "All customers",
+      panelID: "all-customers-content-1",
+    },
+    {
+      id: "accepts-marketing-1",
+      content: "Settings",
+      panelID: "accepts-marketing-content-1",
+    },
+  ];
 
-    <Heading>SyncIt App Heading</Heading>
-    <Navigation location="/">
-      <Navigation.Section
-        items={[
-          {
-            url: "/path/to/place",
-            label: "Home",
-            icon: HomeMajor,
-          },
-          {
-            url: "/path/to/place",
-            label: "Orders",
-            icon: OrdersMajor,
-            badge: "15",
-          },
-          {
-            url: "/path/to/place",
-            label: "Products",
-            icon: ProductsMajor,
-          },
-        ]}
-      />
-    </Navigation>
+  return (
+    <Page fullWidth>
+      <Heading>SyncIt App Heading</Heading>
 
-    <Button ariaExpanded={false}>Add product</Button>
-  </Page>
-);
+      <Card>
+        <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
+          <Card.Section title={tabs[selected].content}>
+            <p>Tab {selected} selected</p>
+          </Card.Section>
+        </Tabs>
+      </Card>
+      <Button ariaExpanded={false}>Add product</Button>
+    </Page>
+  );
 
-export default Index;
+}
