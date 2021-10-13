@@ -1,16 +1,7 @@
-import {
-  Heading,
-  Page,
-  Button,
-  Navigation,
-  Stack,
-  Badge,
-} from "@shopify/polaris";
+import { Page, Card, Tabs } from "@shopify/polaris";
 import { useState, useCallback } from "react";
 
-
 export default function App() {
-
   const [selected, setSelected] = useState(0);
 
   const handleTabChange = useCallback(
@@ -20,22 +11,20 @@ export default function App() {
 
   const tabs = [
     {
-      id: "all-customers-1",
+      id: "create-bundle-1",
       content: "Create Bundle",
-      accessibilityLabel: "All customers",
-      panelID: "all-customers-content-1",
+      accessibilityLabel: "Create Bundle",
+      panelID: "create-bundle-content-1",
     },
     {
-      id: "accepts-marketing-1",
+      id: "settings-1",
       content: "Settings",
-      panelID: "accepts-marketing-content-1",
+      panelID: "settings-content-1",
     },
   ];
 
   return (
     <Page fullWidth>
-      <Heading>SyncIt App Heading</Heading>
-
       <Card>
         <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
           <Card.Section title={tabs[selected].content}>
@@ -43,8 +32,6 @@ export default function App() {
           </Card.Section>
         </Tabs>
       </Card>
-      <Button ariaExpanded={false}>Add product</Button>
     </Page>
   );
-
 }
