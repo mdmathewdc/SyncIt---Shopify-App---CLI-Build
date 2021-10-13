@@ -1,5 +1,5 @@
 import { Page, Card, Tabs } from "@shopify/polaris";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 
 export default function App() {
   const [selected, setSelected] = useState(0);
@@ -9,10 +9,9 @@ export default function App() {
     []
   );
 
-  useEffect( () => {
+  useEffect(() => {
     alert("Re-rendered!");
   });
-
 
   const tabs = [
     {
