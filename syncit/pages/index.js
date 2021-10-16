@@ -28,6 +28,7 @@ export default function App() {
     {
       id: "settings-1",
       content: "Settings",
+      title: "No title required here",
       panelID: "settings-content-1",
     },
   ];
