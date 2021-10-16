@@ -21,6 +21,7 @@ export default function App() {
     {
       id: "create-bundle-1",
       content: "Create Bundle",
+      title: "Select a product to create a Bundle",
       accessibilityLabel: "Create Bundle",
       panelID: "create-bundle-content-1",
     },
