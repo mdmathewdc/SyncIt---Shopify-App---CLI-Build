@@ -37,7 +37,7 @@ export default function App() {
     <Page fullWidth>
       <Card>
         <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-          <Card.Section title={tabs[selected].content}>
+          <Card.Section title={tabs[selected].title}>
             <p>Tab {selected} selected</p>
           </Card.Section>
         </Tabs>
