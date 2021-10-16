@@ -38,11 +38,12 @@ export default function App() {
       <Card>
         <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
           <Card.Section title={tabs[selected].title}>
-            <p>Tab {selected} selected</p>
+            {/* <p>Tab {selected} selected</p> */}
+            <Button primary onClick={handleButtonClick}>Select Product</Button>
+
           </Card.Section>
         </Tabs>
 
-        <Button primary onClick={handleButtonClick}>Select Product</Button>
 
       </Card>
     </Page>
