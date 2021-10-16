@@ -53,6 +53,7 @@ class MyApp extends App {
   render() {
     console.log(Component);
     const { Component, pageProps, host } = this.props;
+    console.log(pageProps);
     return (
       <AppProvider i18n={translations}>
         <Provider
