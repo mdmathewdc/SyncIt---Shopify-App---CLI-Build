@@ -1,5 +1,6 @@
 import { Page, Card, Tabs, Button } from "@shopify/polaris";
 import { useState, useCallback, useEffect, useMemo } from "react";
+import Create from './create/Create';
 
 export default function App() {
   const [selected, setSelected] = useState(0);
@@ -40,11 +41,9 @@ export default function App() {
           <Card.Section title={tabs[selected].title}>
             {/* <p>Tab {selected} selected</p> */}
             <Button primary onClick={handleButtonClick}>Select Product</Button>
-
+            <Create parameter={"hello"}/>
           </Card.Section>
         </Tabs>
-
-
       </Card>
     </Page>
   );

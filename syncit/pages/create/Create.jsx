@@ -1,9 +1,8 @@
 import React from "react";
 
-export default function Create() {
+export default function Create({parameter}) {
 
-
-    <p>This is a sample paragraph...</p>
-
-
+    return(
+        <p>This is a sample paragraph... {parameter}</p>
+    );
 }
