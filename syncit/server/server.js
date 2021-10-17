@@ -71,8 +71,8 @@ app.prepare().then(async () => {
 
   console.log("Node.js Server");
 
-  router.get("/home", async (data) => {
-    return "Home route...Node JS Server";
+  router.get("/home", async (ctx) => {
+    ctx.response.body = JSON.stringify("Home route...Node JS Server");
   });
 
   router.post("/webhooks", async (ctx) => {

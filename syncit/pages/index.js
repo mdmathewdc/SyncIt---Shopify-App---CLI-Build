@@ -14,7 +14,7 @@ export default function App() {
 
     console.log("Button clicked...");
     fetch('/home')
-    .then( response => response.json)
+    .then( response => response.json())
     .then( data => alert(data));
 
   } 
