@@ -6,6 +6,8 @@ import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
+const { MongoClient } = require('mongodb');
+
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -73,7 +75,23 @@ app.prepare().then(async () => {
 
   router.get("/home", async (ctx) => {
     ctx.response.body = JSON.stringify("Home route...Node JS Server");
+
+    const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(err => {
+      const collection = client.db("test").collection("devices");
+      listDatabases();
+      // perform actions on the collection object
+      client.close();
+    });
   });
+
+  async function listDatabases(client){
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+  };
+ 
 
   router.post("/webhooks", async (ctx) => {
     try {
