@@ -69,6 +69,12 @@ app.prepare().then(async () => {
     ctx.res.statusCode = 200;
   };
 
+  console.log("Node.js Server");
+
+  router.get("/home", async (data) => {
+    return "Home route...Node JS Server";
+  });
+
   router.post("/webhooks", async (ctx) => {
     try {
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);

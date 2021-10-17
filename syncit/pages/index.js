@@ -10,11 +10,18 @@ export default function App() {
     []
   );
 
-  const handleButtonClick = () => alert("Button clicked...");
+  const handleButtonClick = () => {
+
+    console.log("Button clicked...");
+    fetch('/home')
+    .then( response => response.json)
+    .then( data => alert(data));
+
+  } 
   
 
   useEffect(() => {
-    alert("Welcome to SyncIt!");
+    console.log("React app loaded");
   }, []);
 
   const tabs = [
