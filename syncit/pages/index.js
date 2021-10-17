@@ -10,9 +10,8 @@ export default function App() {
     []
   );
 
-  const handleButtonClick = () => {
-    alert("Button clicked...");
-  }
+  const handleButtonClick = () => alert("Button clicked...");
+  
 
   useEffect(() => {
     alert("Welcome to SyncIt!");
