@@ -76,22 +76,31 @@ app.prepare().then(async () => {
   router.get("/home", async (ctx) => {
 
     ctx.response.body = JSON.stringify("Home route...Node JS Server");
-
-    const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(err => {
-      const collection = client.db("syncit_database").collection("all_bundles");
-      collection.insertOne( { item: "card", qty: 15 } )
-        .then( response => console.log(response))
-        .catch(error => console.log(error.toString()));
-      
-        // client.close();
-    
-    });
-
+    insertIntoDatabase();
 
   });
- 
+
+  async function insertIntoDatabase(){
+    
+    const uri = "mongodb+srv://syncit_admin:Yb0Ns8JTyB0bThrW@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    const client = new MongoClient(uri);
+    
+    try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+  
+    // Make the appropriate DB calls and await them
+    const collection = client.db("syncit_database").collection("all_bundles");
+    await collection.insertOne( { item: "cool", qty: 17 } )
+    } 
+    catch (e) {
+      console.error(e);
+    } 
+    finally {
+      await client.close();
+    }
+  }
+
   router.post("/webhooks", async (ctx) => {
     try {
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
