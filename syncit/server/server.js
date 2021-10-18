@@ -78,7 +78,7 @@ app.prepare().then(async () => {
     const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
-      const collection = client.db("test").collection("devices");
+      const collection = client.db("syncit_database").collection("all_bundles");
       // perform actions on the collection object
       client.close();
     });
