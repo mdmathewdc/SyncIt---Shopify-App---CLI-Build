@@ -74,14 +74,21 @@ app.prepare().then(async () => {
   console.log("Node.js Server");
 
   router.get("/home", async (ctx) => {
+
     ctx.response.body = JSON.stringify("Home route...Node JS Server");
     const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
+      
       const collection = client.db("syncit_database").collection("all_bundles");
-      // perform actions on the collection object
-      client.close();
+      collection.insertOne( { item: "card", qty: 15 } )
+      .then( response => console.log(response))
+      .catch(error => console.log(error.toString()));
+        // perform actions on the collection object
+      // client.close();
+    
     });
+
 
   });
  
