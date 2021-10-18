@@ -29,7 +29,7 @@ export default function App() {
     try {
       console.log("React app loaded");
       const response = await fetch('/checkIfStoreExists');
-      const json = response.json();
+      const json = await response.json();
       console.log(json);
     }
     catch (e) {
