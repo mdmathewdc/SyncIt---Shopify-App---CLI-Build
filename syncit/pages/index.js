@@ -13,16 +13,31 @@ export default function App() {
   const handleButtonClick = () => {
 
     console.log("Button clicked...");
+
     fetch('/home')
     .then( response => response.json())
     .then( data => console.log(data));
 
   } 
   
-
-  useEffect(() => {
-    console.log("React app loaded");
+  useEffect( async() => {
+    checkStore();
   }, []);
+
+  const checkStore = async () => {
+
+    try {
+      console.log("React app loaded");
+      const response = await fetch('/checkIfStoreExists');
+      const json = response.json();
+      console.log(json);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+
+  }
 
   const tabs = [
     {
