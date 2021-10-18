@@ -76,6 +76,7 @@ app.prepare().then(async () => {
   router.get("/home", async (ctx) => {
     ctx.response.body = JSON.stringify("Home route...Node JS Server");
 
+    connector();
     const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(err => {
@@ -85,9 +86,6 @@ app.prepare().then(async () => {
     });
 
   });
-
-
-
  
   router.post("/webhooks", async (ctx) => {
     try {
