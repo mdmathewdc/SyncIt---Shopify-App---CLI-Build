@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import dotenv from "dotenv";
 import "isomorphic-fetch";
-import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
+import createShopifyAuth, { TEST_COOKIE_NAME, verifyRequest } from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
@@ -78,17 +78,14 @@ app.prepare().then(async () => {
 
     const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect( err => {
-      console.log("Database connected!");
+    client.connect(err => {
       const collection = client.db("test").collection("devices");
       // perform actions on the collection object
-      client.db("syncit_database").collection("all_bundles").estimatedDocumentCount()
-      .then(response => console.log(JSON.stringify(response)))
-      .catch(error => console.log(error));
-      // client.close();
+      client.close();
     });
 
   });
+
 
 
  
