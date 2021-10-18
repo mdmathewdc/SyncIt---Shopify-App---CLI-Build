@@ -89,8 +89,8 @@ app.prepare().then(async () => {
 
   async function insertIntoDatabase(){
     
-    const uri = "mongodb+srv://syncit_admin:Yb0Ns8JTyB0bThrW@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-    const client = new MongoClient(uri);
+    // const uri = "mongodb+srv://syncit_admin:Yb0Ns8JTyB0bThrW@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    const client = new MongoClient(process.env.MONGO_URI);
     
     try {
     // Connect to the MongoDB cluster
@@ -98,7 +98,7 @@ app.prepare().then(async () => {
   
     // Make the appropriate DB calls and await them
     const collection = client.db("syncit_database").collection("all_bundles");
-    await collection.insertOne( { item: "cool", qty: 17 } )
+    await collection.insertOne( { item: "cool", qty: 27 } )
     } 
     catch (e) {
       console.error(e);
