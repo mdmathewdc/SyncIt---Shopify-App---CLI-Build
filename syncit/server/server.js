@@ -78,21 +78,20 @@ app.prepare().then(async () => {
 
     const uri = "mongodb+srv://syncit_admin:syncit_password@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(err => {
+    client.connect( err => {
+      console.log("Database connected!");
       const collection = client.db("test").collection("devices");
-      listDatabases();
       // perform actions on the collection object
-      client.close();
+      client.db("syncit_database").collection("all_bundles").estimatedDocumentCount()
+      .then(response => console.log(JSON.stringify(response)))
+      .catch(error => console.log(error));
+      // client.close();
     });
+
   });
 
-  async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-  };
- 
 
+ 
   router.post("/webhooks", async (ctx) => {
     try {
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
