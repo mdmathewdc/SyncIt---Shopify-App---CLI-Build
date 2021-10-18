@@ -73,6 +73,12 @@ app.prepare().then(async () => {
 
   console.log("Node.js Server");
 
+  router.get("/checkIfStoreExists", async (ctx) => {
+
+    ctx.response.body = JSON.stringify("Checking if store exists in the store table...")
+
+  });
+
   router.get("/home", async (ctx) => {
 
     ctx.response.body = JSON.stringify("Home route...Node JS Server");
