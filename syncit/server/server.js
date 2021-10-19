@@ -79,8 +79,35 @@ app.prepare().then(async () => {
   router.get("/checkIfStoreExists", async (ctx) => {
 
     ctx.response.body = JSON.stringify("The current shop is :" + currentShop);
+    checkIfStoreExists();
 
   });
+
+  async function checkIfStoreExists() {
+
+    const client = new MongoClient(process.env.MONGO_URI);
+    
+    try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+  
+    // Make the appropriate DB calls and await them
+    const collection = client.db("syncit_database").collection("stores");
+
+    const filter_dict = {"shop":"syncit"};
+    const response = await collection.count_documents(filter_dict);
+    console.log("Mongo response "+ JSON.stringify(response));
+    } 
+    catch (e) {
+      console.error(e);
+    } 
+    finally {
+      await client.close();
+    }
+
+
+
+  }
 
   router.get("/home", async (ctx) => {
 
@@ -91,7 +118,6 @@ app.prepare().then(async () => {
 
   async function insertIntoDatabase(){
     
-    // const uri = "mongodb+srv://syncit_admin:Yb0Ns8JTyB0bThrW@cluster0.iuory.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
     const client = new MongoClient(process.env.MONGO_URI);
     
     try {
