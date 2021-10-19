@@ -42,6 +42,7 @@ app.prepare().then(async () => {
         // Access token and shop available in ctx.state.shopify
         console.log(ctx.state.shopify);
         const { shop, accessToken, scope } = ctx.state.shopify;
+        console.log("Shop: " + shop);
         const host = ctx.query.host;
         ACTIVE_SHOPIFY_SHOPS[shop] = scope;
 
