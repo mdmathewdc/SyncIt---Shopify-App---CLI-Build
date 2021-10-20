@@ -7,6 +7,8 @@ import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
 const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 
 dotenv.config();
@@ -79,31 +81,36 @@ app.prepare().then(async () => {
   router.get("/checkIfStoreExists", async (ctx) => {
 
     ctx.response.body = JSON.stringify("The current shop is :" + currentShop);
-    checkIfStoreExists();
+
+    checkIfStoreExists(currentShop)
+    .catch(error => console.log(error));
 
   });
 
-  async function checkIfStoreExists() {
+  async function checkIfStoreExists(currentShop) {
 
-    const client = new MongoClient(process.env.MONGO_URI);
-    
-    try {
-    // Connect to the MongoDB cluster
-    await client.connect();
+    await mongoose.connect(process.env.MONGO_STOREDB_URI);
+
+    const schema = new Schema({ shop: String });
+    const Shop = mongoose.model('stores', schema);
+
+    const params = {};
+    params.shop = currentShop;
   
-    // Make the appropriate DB calls and await them
-    const collection = client.db("syncit_database").collection("stores");
+    Shop.find( params, function(error, result) {
+      
+      if (error) {
+        console.log(error);
+      } 
+      
+      else {
+        if (result.length) {
+          console.log(result);
+        }
+        // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
+      }
 
-    const filter_dict = {"shop":"syncit"};
-    const response = await collection.count_documents(filter_dict);
-    console.log("Mongo response "+ JSON.stringify(response));
-    } 
-    catch (e) {
-      console.error(e);
-    } 
-    finally {
-      await client.close();
-    }
+    });
 
   }
 
