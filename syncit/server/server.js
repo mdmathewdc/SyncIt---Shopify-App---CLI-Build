@@ -105,8 +105,6 @@ app.prepare().then(async () => {
       await client.close();
     }
 
-
-
   }
 
   router.get("/home", async (ctx) => {
