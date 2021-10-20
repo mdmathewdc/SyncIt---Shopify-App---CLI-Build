@@ -104,8 +104,11 @@ app.prepare().then(async () => {
       } 
       
       else {
-        if (result.length) {
+        if (result.length != 0) {       //Shop exists in Store DB
           console.log(result);
+        }
+        else {
+          //Insert shop name into DB
         }
         // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
       }
