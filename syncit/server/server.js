@@ -91,7 +91,13 @@ app.prepare().then(async () => {
 
     await mongoose.connect(process.env.MONGO_STOREDB_URI);
 
-    const schema = new Schema({ shop: String });
+    const schema = new Schema(
+      { 
+        shop: String 
+      },
+      {
+        versionKey: false // Prevent versioning for each document
+      });
     const Shop = mongoose.model('stores', schema);
 
     const params = {};
