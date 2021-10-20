@@ -115,6 +115,7 @@ app.prepare().then(async () => {
         }
         else {
           //Insert shop name into DB
+          let newEntry = new Shop(params).save();
         }
         // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
       }
