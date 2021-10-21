@@ -98,7 +98,14 @@ app.prepare().then(async () => {
       {
         versionKey: false // Prevent versioning for each document
       });
-    const Shop = mongoose.model('stores', schema);
+    // const Shop = mongoose.model('stores', schema);
+
+    let Shop;
+    try {
+      Shop = mongoose.model('stores');
+    } catch (error) {
+      Shop = mongoose.model('stores', schema);
+    }
 
     const params = {};
     params.shop = currentShop;
@@ -121,6 +128,9 @@ app.prepare().then(async () => {
       }
 
     });
+
+    // mongoose.connection.close();
+
 
   }
 
