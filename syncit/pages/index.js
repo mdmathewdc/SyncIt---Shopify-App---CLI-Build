@@ -1,4 +1,4 @@
-import { Page, Card, Tabs, Button } from "@shopify/polaris";
+import { Page, Card, Tabs, Button, Toast } from "@shopify/polaris";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import Create from './create/Create';
 
@@ -55,6 +55,14 @@ export default function App() {
     },
   ];
 
+  const [active, setActive] = useState(false);
+
+  const toggleActive = useCallback(() => setActive((active) => !active), []);
+
+  const toastMarkup = active ? (
+    <Toast content="Message sent" onDismiss={toggleActive} />
+  ) : null;
+
   return (
     <Page fullWidth>
       <Card>
@@ -66,6 +74,7 @@ export default function App() {
           </Card.Section>
         </Tabs>
       </Card>
+      {toastMarkup}
     </Page>
   );
 }
