@@ -58,12 +58,9 @@ export default function App() {
 
   const [active, setActive] = useState(false);
 
-  const toggleActive = useCallback(() => 
-  {
-    setActive((active) => !active)
-  }, []);
+  const toggleActive = useCallback(() => setActive((active) => !active), []);
 
-  const toastMarkup = active ? (
+  const toastMarkup =active ? (
       <Toast content="Message sent" onDismiss={toggleActive} />
     ) : null;  
 
