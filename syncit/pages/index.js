@@ -31,6 +31,7 @@ export default function App() {
       const response = await fetch('/checkIfStoreExists');
       const json = await response.json();
       console.log(json);
+      setMessage(json);
       toggleActive();   //Toggle the toast
     }
     catch (e) {
@@ -57,8 +58,13 @@ export default function App() {
   ];
 
   const [active, setActive] = useState(false);
+  const [toastMessage, setMessage] = useState("Intial message");
 
-  const toggleActive = useCallback(() => setActive((active) => !active), []);
+  const toggleActive = useCallback( () => {
+    setActive((active) => !active);
+    // setMessage("Cool");
+  },
+     []);
 
   const toastMarkup = (msg) => active ? (
       <Toast content={msg} onDismiss={toggleActive} />
@@ -76,7 +82,7 @@ export default function App() {
           </Card.Section>
         </Tabs>
       </Card>
-      {toastMarkup("hello")}
+      {toastMarkup(toastMessage)}
     </Page>
   </Frame> 
   );
