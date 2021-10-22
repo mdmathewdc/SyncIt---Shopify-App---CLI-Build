@@ -60,8 +60,8 @@ export default function App() {
 
   const toggleActive = useCallback(() => setActive((active) => !active), []);
 
-  const toastMarkup =active ? (
-      <Toast content="Message sent" onDismiss={toggleActive} />
+  const toastMarkup = (msg) => active ? (
+      <Toast content={msg} onDismiss={toggleActive} />
     ) : null;  
 
   return (
@@ -76,7 +76,7 @@ export default function App() {
           </Card.Section>
         </Tabs>
       </Card>
-      {toastMarkup}
+      {toastMarkup("hello")}
     </Page>
   </Frame> 
   );
