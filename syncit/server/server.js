@@ -89,7 +89,8 @@ app.prepare().then(async () => {
 
     try {
       const response = await checkIfStoreExists(currentShop);
-      console.log("!!!"+response);
+      // console.log("!!!"+response);
+      ctx.response.body = JSON.stringify(response);
     }
 
     catch(error) {
@@ -100,7 +101,7 @@ app.prepare().then(async () => {
 
   async function checkIfStoreExists(currentShop) {
 
-    // var response;
+    // var mongoResponse;
 
     await mongoose.connect(process.env.MONGO_STOREDB_URI);
 
@@ -122,12 +123,20 @@ app.prepare().then(async () => {
 
     const params = {};
     params.shop = currentShop;
-  
-    const mongoResponse = await Shop.find( params, function(error, result) {
 
-      if (error) {
-        console.log(error);
-      } 
+    try {
+        var mongoResponse = await Shop.find(params).clone();
+    }
+    catch {
+      //If error
+      console.log(error);
+    }
+  
+    // const mongoResponse = await Shop.find( params, function(error, result) {
+
+    //   if (error) {
+    //     console.log(error);
+    //   } 
       
       // else {
       //   if (result.length != 0) {       //Shop exists in Store DB
@@ -147,8 +156,8 @@ app.prepare().then(async () => {
       // }
 
 
-    }
-    ).clone();
+    // }
+    // ).clone();
 
     if (mongoResponse.length != 0) {
       toastResponse = "Store already registered : " + currentShop;
