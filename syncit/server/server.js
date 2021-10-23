@@ -160,12 +160,12 @@ app.prepare().then(async () => {
     // ).clone();
 
     if (mongoResponse.length != 0) {
-      toastResponse = "Store already registered : " + currentShop;
+      toastResponse = "Store registered : " + currentShop;
     }
     else {
       //Insert shop name into DB
       let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
-      toastResponse =  "Shop added : " + currentShop;
+      toastResponse =  "Store added : " + currentShop;
     }
 
     return toastResponse;
