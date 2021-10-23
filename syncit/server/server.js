@@ -19,6 +19,7 @@ const app = next({
 });
 const handle = app.getRequestHandler();
 let currentShop;
+var toastResponse;
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -80,14 +81,26 @@ app.prepare().then(async () => {
 
   router.get("/checkIfStoreExists", async (ctx) => {
 
-    ctx.response.body = JSON.stringify("The current shop is :" + currentShop);
+    // ctx.response.body = JSON.stringify("The current shop is :" + currentShop);
 
-    checkIfStoreExists(currentShop)
-    .catch(error => console.log(error));
+    // checkIfStoreExists(currentShop)
+    // .then(response => console.log(response))
+    // .catch(error => console.log(error));
+
+    try {
+      const response = await checkIfStoreExists(currentShop);
+      console.log("!!!"+response);
+    }
+
+    catch(error) {
+      console.log(error);
+    }
 
   });
 
   async function checkIfStoreExists(currentShop) {
+
+    // var response;
 
     await mongoose.connect(process.env.MONGO_STOREDB_URI);
 
@@ -110,27 +123,44 @@ app.prepare().then(async () => {
     const params = {};
     params.shop = currentShop;
   
-    Shop.find( params, function(error, result) {
-      
+    const mongoResponse = await Shop.find( params, function(error, result) {
+
       if (error) {
         console.log(error);
       } 
       
-      else {
-        if (result.length != 0) {       //Shop exists in Store DB
-          console.log(result);
-        }
-        else {
-          //Insert shop name into DB
-          let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
-        }
-        // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
-      }
+      // else {
+      //   if (result.length != 0) {       //Shop exists in Store DB
+      //     // console.log(result);
+      //     toastResponse = "Store already registered : " + currentShop;
+          
+      //     // console.log(toastResponse);
 
-    });
+      //   }
+      //   else {
+      //     //Insert shop name into DB
+      //     let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
+      //     toastResponse =  "Shop added : " + currentShop;
 
+      //   }
+      //   // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
+      // }
+
+
+    }
+    ).clone();
+
+    if (mongoResponse.length != 0) {
+      toastResponse = "Store already registered : " + currentShop;
+    }
+    else {
+      //Insert shop name into DB
+      let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
+      toastResponse =  "Shop added : " + currentShop;
+    }
+
+    return toastResponse;
     // mongoose.connection.close();
-
 
   }
 
