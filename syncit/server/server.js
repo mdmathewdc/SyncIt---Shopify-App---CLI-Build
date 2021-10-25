@@ -81,15 +81,8 @@ app.prepare().then(async () => {
 
   router.get("/checkIfStoreExists", async (ctx) => {
 
-    // ctx.response.body = JSON.stringify("The current shop is :" + currentShop);
-
-    // checkIfStoreExists(currentShop)
-    // .then(response => console.log(response))
-    // .catch(error => console.log(error));
-
     try {
       const response = await checkIfStoreExists(currentShop);
-      // console.log("!!!"+response);
       ctx.response.body = JSON.stringify(response);
     }
 
@@ -101,8 +94,6 @@ app.prepare().then(async () => {
 
   async function checkIfStoreExists(currentShop) {
 
-    // var mongoResponse;
-
     await mongoose.connect(process.env.MONGO_STOREDB_URI);
 
     const schema = new Schema(
@@ -112,7 +103,6 @@ app.prepare().then(async () => {
       {
         versionKey: false // Prevent versioning for each document
       });
-    // const Shop = mongoose.model('stores', schema);
 
     let Shop;
     try {
@@ -131,33 +121,6 @@ app.prepare().then(async () => {
       //If error
       console.log(error);
     }
-  
-    // const mongoResponse = await Shop.find( params, function(error, result) {
-
-    //   if (error) {
-    //     console.log(error);
-    //   } 
-      
-      // else {
-      //   if (result.length != 0) {       //Shop exists in Store DB
-      //     // console.log(result);
-      //     toastResponse = "Store already registered : " + currentShop;
-          
-      //     // console.log(toastResponse);
-
-      //   }
-      //   else {
-      //     //Insert shop name into DB
-      //     let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
-      //     toastResponse =  "Shop added : " + currentShop;
-
-      //   }
-      //   // let dog = new Shop({ shop: "dog"}).save();   //Write working but creating a new DB myFirstDatabase
-      // }
-
-
-    // }
-    // ).clone();
 
     if (mongoResponse.length != 0) {
       toastResponse = "Store registered : " + currentShop;
