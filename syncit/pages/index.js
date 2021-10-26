@@ -62,7 +62,6 @@ export default function App() {
 
   const toggleActive = useCallback( () => {
     setActive((active) => !active);
-    // setMessage("Cool");
   },
      []);
 
