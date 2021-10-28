@@ -37,7 +37,6 @@ export default function App() {
     catch (e) {
       console.log(e);
     }
-
   }
 
   const tabs = [
