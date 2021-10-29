@@ -55,7 +55,7 @@ export default function App() {
   ];
 
   const [active, setActive] = useState(false);
-  const [toastMessage, setMessage] = useState("Intial message");
+  const [toastMessage, setMessage] = useState("Initial message");
 
   const toggleActive = useCallback( () => {
     setActive((active) => !active);
