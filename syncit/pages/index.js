@@ -30,7 +30,6 @@ export default function App() {
       console.log("React app loaded");
       const response = await fetch('/checkIfStoreExists');
       const json = await response.json();
-      console.log(json);
       setMessage(json);
       toggleActive();   //Toggle the toast
     }
