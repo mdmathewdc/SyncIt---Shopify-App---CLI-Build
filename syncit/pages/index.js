@@ -27,7 +27,7 @@ export default function App() {
   const checkStore = async () => {
 
     try {
-      console.log("React app loaded");
+      console.log("React app loaded....");
       const response = await fetch('/checkIfStoreExists');
       const json = await response.json();
       setMessage(json);
