@@ -137,7 +137,7 @@ app.prepare().then(async () => {
 
   router.get("/home", async (ctx) => {
 
-    ctx.response.body = JSON.stringify("Home ROUTE...Node JS Server");
+    ctx.response.body = JSON.stringify("HomE ROUTE...Node JS Server");
     insertIntoDatabase();
 
   });
