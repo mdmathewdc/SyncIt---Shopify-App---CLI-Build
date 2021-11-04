@@ -1,13 +1,16 @@
 import "@babel/polyfill";
 import dotenv from "dotenv";
 import "isomorphic-fetch";
-import createShopifyAuth, { TEST_COOKIE_NAME, verifyRequest } from "@shopify/koa-shopify-auth";
+import createShopifyAuth, {
+  TEST_COOKIE_NAME,
+  verifyRequest,
+} from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
-const { MongoClient } = require('mongodb');
-const mongoose = require('mongoose');
+const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 dotenv.config();
@@ -79,85 +82,73 @@ app.prepare().then(async () => {
   console.log("Node.js Server");
 
   router.get("/checkIfStoreExists", async (ctx) => {
-
     try {
       const response = await checkIfStoreExists(currentShop);
       ctx.response.body = JSON.stringify(response);
-    }
-
-    catch(error) {
+    } catch (error) {
       console.log(error);
     }
-
   });
 
   async function checkIfStoreExists(currentShop) {
-
     await mongoose.connect(process.env.MONGO_STOREDB_URI);
 
     const schema = new Schema(
-      { 
-        shop: String 
+      {
+        shop: String,
       },
       {
-        versionKey: false // Prevent versioning for each document
-      });
+        versionKey: false, // Prevent versioning for each document
+      }
+    );
 
     let Shop;
     try {
-      Shop = mongoose.model('stores');
+      Shop = mongoose.model("stores");
     } catch (error) {
-      Shop = mongoose.model('stores', schema);
+      Shop = mongoose.model("stores", schema);
     }
 
     const params = {};
     params.shop = currentShop;
 
     try {
-        var mongoResponse = await Shop.find(params).clone();
-    }
-    catch {
+      var mongoResponse = await Shop.find(params).clone();
+    } catch {
       //If error
       console.log(error);
     }
 
     if (mongoResponse.length != 0) {
       toastResponse = "Store registered : " + currentShop;
-    }
-    else {
+    } else {
       //Insert shop name into DB
-      let newEntry = new Shop(params).save();   //Enter shop name into MongoDB
-      toastResponse =  "Store added : " + currentShop;
+      let newEntry = new Shop(params).save(); //Enter shop name into MongoDB
+      toastResponse = "Store added : " + currentShop;
     }
 
     return toastResponse;
-    // mongoose.connection.close();
-
+    // mongoose.connection.close();   //Close the mongoose connection
   }
 
   router.get("/home", async (ctx) => {
-
     ctx.response.body = JSON.stringify("HomE ROUTE...Node JS Server");
     insertIntoDatabase();
-
   });
 
-  async function insertIntoDatabase(){
-    
+  async function insertIntoDatabase() {
     const client = new MongoClient(process.env.MONGO_URI);
-    
+
     try {
-    // Connect to the MongoDB cluster
-    await client.connect();
-  
-    // Make the appropriate DB calls and await them
-    const collection = client.db("syncit_database").collection("all_bundles");
-    await collection.insertOne( { item: "cool", qty: 27 } )
-    } 
-    catch (e) {
+      // Connect to the MongoDB cluster
+      await client.connect();
+
+      // Make the appropriate DB calls and await them
+      const collection = client.db("syncit_database").collection("all_bundles");
+      await collection.insertOne({ item: "cool", qty: 27 });
+    } catch (e) {
       console.error(e);
-    } 
-    finally {
+    } finally {
       await client.close();
     }
   }
